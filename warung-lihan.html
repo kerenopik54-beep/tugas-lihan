@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warung Lihan — Masakan Rumahan, Rasa Kampung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --chalk-green: #1F3327;
+    --chalk-green-deep: #162720;
+    --cream: #F7F1E3;
+    --cream-dim: #E9DFC7;
+    --chili: #C1440E;
+    --chili-dark: #9A360A;
+    --turmeric: #E3A008;
+    --brown: #4A2E1E;
+    --line: rgba(247,241,227,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--brown);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.6;
+  }
+  h1,h2,h3,.display{
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.01em;
+  }
+  a{ color: inherit; }
+  img{ max-width: 100%; display:block; }
+  section{ padding: 88px 24px; }
+  .wrap{ max-width: 1080px; margin: 0 auto; }
+
+  /* texture: subtle chalk speckle for dark sections */
+  .chalk-bg{
+    background-color: var(--chalk-green);
+    background-image:
+      radial-gradient(rgba(247,241,227,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(247,241,227,0.03) 1px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    background-position: 0 0, 2px 2px;
+    color: var(--cream);
+  }
+
+  /* ---------- NAVBAR ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: var(--chalk-green-deep);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    max-width: 1080px; margin:0 auto; padding: 16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.3rem;
+    color: var(--cream);
+  }
+  .brand .mark{
+    width:34px; height:34px; border-radius:50%;
+    background: var(--chili);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.1rem;
+  }
+  nav.links{ display:flex; gap:28px; list-style:none; }
+  .nav ul{ display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav ul li a{
+    text-decoration:none; color: var(--cream-dim);
+    font-size: 0.92rem; font-weight:500;
+    padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .nav ul li a:hover{ color: var(--turmeric); border-color: var(--turmeric); }
+  .nav-cta{
+    background: var(--chili); color: var(--cream);
+    padding: 9px 18px; border-radius: 999px;
+    font-size: 0.88rem; font-weight:600; text-decoration:none;
+    transition: transform .15s, background .2s;
+  }
+  .nav-cta:hover{ background: var(--chili-dark); transform: translateY(-1px); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 110px 24px 100px;
+    text-align:left;
+    overflow:hidden;
+  }
+  .hero .wrap{ position:relative; z-index:2; max-width: 720px; }
+  .hero .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'DM Mono', monospace; font-size:0.78rem;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color: var(--turmeric); margin-bottom: 22px;
+  }
+  .hero .eyebrow::before{ content:"—"; color: var(--chili); }
+  .hero h1{
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 600; margin:0 0 22px; color: var(--cream);
+    line-height:1.08;
+  }
+  .hero h1 em{
+    font-style: italic; color: var(--turmeric); font-weight:500;
+  }
+  .hero p.sub{
+    font-size: 1.08rem; color: var(--cream-dim); max-width: 520px; margin: 0 0 36px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{
+    background: var(--chili); color: var(--cream);
+    padding: 15px 30px; border-radius: 999px; text-decoration:none;
+    font-weight:600; font-size:0.95rem; display:inline-flex; align-items:center; gap:8px;
+    transition: transform .15s, box-shadow .2s;
+    box-shadow: 0 6px 18px rgba(193,68,14,0.35);
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(193,68,14,0.45); }
+  .btn-ghost{
+    border: 1px solid var(--line); color: var(--cream);
+    padding: 15px 26px; border-radius: 999px; text-decoration:none;
+    font-weight:500; font-size:0.95rem;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{ border-color: var(--turmeric); background: rgba(227,160,8,0.08); }
+
+  /* steam signature animation */
+  .steam-wrap{
+    position:absolute; right: 6%; top: 18%;
+    display:flex; gap:10px; opacity:0.55;
+  }
+  .steam{
+    width:3px; height: 90px; border-radius: 3px;
+    background: linear-gradient(to top, transparent, var(--cream-dim), transparent);
+    animation: rise 3.2s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  .steam:nth-child(2){ animation-delay: .6s; height:70px; }
+  .steam:nth-child(3){ animation-delay: 1.2s; height: 100px; }
+  @keyframes rise{
+    0%{ transform: translateY(0) scaleX(1); opacity:0; }
+    20%{ opacity:0.6; }
+    50%{ transform: translateY(-30px) scaleX(1.6); }
+    100%{ transform: translateY(-70px) scaleX(2.2); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .steam{ animation:none; } }
+
+  .divider{
+    height: 2px; margin: 0 auto;
+    max-width: 1080px;
+    background-image: repeating-linear-gradient(to right, var(--brown) 0 10px, transparent 10px 18px);
+    opacity: 0.35;
+  }
+
+  /* ---------- MENU / LAYANAN ---------- */
+  .section-head{ max-width: 620px; margin-bottom: 52px; }
+  .section-head .tag{
+    font-family:'DM Mono', monospace; font-size:0.78rem; letter-spacing:0.12em;
+    text-transform:uppercase; color: var(--chili); display:block; margin-bottom:10px;
+  }
+  .section-head h2{ font-size: clamp(1.8rem, 3vw, 2.4rem); margin:0; font-weight:600; }
+
+  .menu-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+    gap: 24px;
+  }
+  .menu-card{
+    background: var(--cream); border: 1px solid rgba(74,46,30,0.15);
+    border-radius: 18px; padding: 30px 26px;
+    position:relative; transition: transform .2s, box-shadow .2s;
+  }
+  .menu-card:hover{ transform: translateY(-4px); box-shadow: 0 14px 30px rgba(74,46,30,0.12); }
+  .menu-card .icon{
+    width:48px; height:48px; border-radius: 12px;
+    background: var(--turmeric); color: var(--chalk-green-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.4rem; margin-bottom: 20px;
+  }
+  .menu-card h3{ font-size: 1.15rem; margin: 0 0 8px; font-weight:600; }
+  .menu-card p{ font-size: 0.92rem; color: rgba(74,46,30,0.75); margin:0; }
+
+  /* ---------- HARGA (menu board) ---------- */
+  .board{
+    border-radius: 22px; padding: 48px 40px;
+    position:relative;
+  }
+  .board .section-head h2, .board .section-head .tag{ color: var(--cream); }
+  .board .section-head .tag{ color: var(--turmeric); }
+  .price-list{ list-style:none; margin:0; padding:0; }
+  .price-list li{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding: 18px 0; border-bottom: 1px dashed var(--line);
+    gap: 20px;
+  }
+  .price-list li:last-child{ border-bottom:none; }
+  .price-list .name{ font-family:'Fraunces', serif; font-size:1.15rem; font-weight:500; }
+  .price-list .desc{ display:block; font-family:'Work Sans',sans-serif; font-size:0.85rem; color: var(--cream-dim); font-weight:400; margin-top:4px; }
+  .price-list .amount{ font-family:'DM Mono', monospace; font-size:1.1rem; color: var(--turmeric); white-space:nowrap; }
+
+  /* ---------- BOOKING / TIKET PESAN ---------- */
+  .order-section{ background: var(--cream-dim); }
+  .ticket{
+    background: var(--cream);
+    max-width: 560px; margin: 0 auto;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(74,46,30,0.15);
+    padding: 40px 40px 32px;
+  }
+  .ticket::before, .ticket::after{
+    content:"";
+    position:absolute; left:0; right:0; height: 14px;
+    background:
+      radial-gradient(circle at 10px 0, transparent 7px, var(--cream-dim) 7.5px) ,
+      var(--cream);
+    background-size: 20px 14px;
+    background-repeat: repeat-x;
+  }
+  .ticket::before{ top:-1px; transform: rotate(180deg); }
+  .ticket::after{ bottom:-1px; }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    border-bottom: 1px dashed rgba(74,46,30,0.3); padding-bottom: 18px; margin-bottom: 24px;
+  }
+  .ticket-head h3{ margin:0; font-size:1.4rem; }
+  .ticket-head span{ font-family:'DM Mono', monospace; font-size:0.75rem; color: var(--chili); }
+  form.order-form{ display:flex; flex-direction:column; gap:18px; }
+  .field label{
+    display:block; font-size:0.82rem; font-weight:600; margin-bottom:7px;
+    text-transform:uppercase; letter-spacing:0.05em; color: var(--brown);
+  }
+  .field input, .field select, .field textarea{
+    width:100%; padding: 12px 14px; border-radius:8px;
+    border:1px solid rgba(74,46,30,0.25); background: #fff;
+    font-family:'Work Sans', sans-serif; font-size:0.95rem; color: var(--brown);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline: 2px solid var(--turmeric); outline-offset:1px;
+  }
+  .field-row{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .submit-btn{
+    margin-top:8px; background: var(--chili); color: var(--cream);
+    border:none; padding:15px; border-radius:8px; font-size:1rem; font-weight:600;
+    cursor:pointer; transition: background .2s, transform .15s;
+  }
+  .submit-btn:hover{ background: var(--chili-dark); transform: translateY(-1px); }
+  .stamp{
+    display:none; margin-top:18px; text-align:center;
+    font-family:'Fraunces', serif; font-style:italic; color: var(--chalk-green);
+    border: 2px solid var(--chalk-green); border-radius: 8px; padding: 12px;
+    transform: rotate(-2deg);
+  }
+  .stamp.show{ display:block; }
+
+  footer{
+    background: var(--chalk-green-deep); color: var(--cream-dim);
+    text-align:center; padding: 32px 24px; font-size:0.85rem;
+  }
+
+  @media (max-width: 640px){
+    .nav ul{ display:none; }
+    .field-row{ grid-template-columns: 1fr; }
+    section{ padding: 64px 20px; }
+    .ticket{ padding: 30px 22px 26px; }
+    .steam-wrap{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="mark">🌶</span> Warung Lihan</div>
+    <ul>
+      <li><a href="#home">Beranda</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#harga">Harga</a></li>
+      <li><a href="#pesan">Pesan</a></li>
+    </ul>
+    <a class="nav-cta" href="#pesan">Pesan Sekarang</a>
+  </div>
+</header>
+
+<section id="home" class="hero chalk-bg">
+  <div class="steam-wrap">
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Dapur rumahan sejak 2026</span>
+    <h1>Masakan rumahan, <em>rasa kampung</em>, langsung dari dapur kami.</h1>
+    <p class="sub">Bahan segar dipetik pagi, bumbu diulek tangan, dimasak dengan tungku dan kesabaran. Siap antar atau ambil sendiri hari ini.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#pesan">Pesan Sekarang →</a>
+      <a class="btn-ghost" href="#menu">Lihat Menu</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Menu Kami</span>
+      <h2>Hidangan andalan dapur Lihan</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="icon">🍛</div>
+        <h3>Nasi Rames</h3>
+        <p>Nasi hangat dengan lauk pilihan, sayur, dan sambal ulek segar setiap hari.</p>
+      </div>
+      <div class="menu-card">
+        <div class="icon">🍢</div>
+        <h3>Sate & Bakar</h3>
+        <p>Ayam dan kambing dibakar arang, dilumuri bumbu kacang racikan sendiri.</p>
+      </div>
+      <div class="menu-card">
+        <div class="icon">🍲</div>
+        <h3>Soto & Berkuah</h3>
+        <p>Kuah kaldu yang direbus lama, kaya rempah, disajikan panas-panas.</p>
+      </div>
+      <div class="menu-card">
+        <div class="icon">🥤</div>
+        <h3>Minuman Tradisional</h3>
+        <p>Es cendol, wedang jahe, hingga kunyit asam, semua racikan alami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="harga">
+  <div class="wrap board chalk-bg">
+    <div class="section-head">
+      <span class="tag">Papan Menu</span>
+      <h2>Daftar Harga</h2>
+    </div>
+    <ul class="price-list">
+      <li>
+        <span class="name">Nasi Rames<span class="desc">Lauk pilihan + sayur + sambal</span></span>
+        <span class="amount">Rp18.000</span>
+      </li>
+      <li>
+        <span class="name">Sate Ayam (10 tusuk)<span class="desc">Dengan bumbu kacang & lontong</span></span>
+        <span class="amount">Rp25.000</span>
+      </li>
+      <li>
+        <span class="name">Soto Ayam<span class="desc">Kuah bening, disajikan panas</span></span>
+        <span class="amount">Rp20.000</span>
+      </li>
+      <li>
+        <span class="name">Es Cendol<span class="desc">Santan asli, gula merah cair</span></span>
+        <span class="amount">Rp10.000</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="pesan" class="order-section">
+  <div class="wrap">
+    <div class="section-head" style="margin: 0 auto 40px; text-align:center; max-width:100%;">
+      <span class="tag">Pesan Makanan</span>
+      <h2>Booking / Pesan Sekarang</h2>
+    </div>
+    <div class="ticket">
+      <div class="ticket-head">
+        <h3>Tiket Pesanan</h3>
+        <span>Jangan Lupa Diisi</span>
+      </div>
+      <form class="order-form" onsubmit="event.preventDefault(); document.getElementById('stampMsg').classList.add('show');">
+        <div class="field">
+          <label for="nama">Nama Pemesan</label>
+          <input id="nama" type="text" placeholder="Nama lengkap" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="menu-pilih">Pilih Menu</label>
+            <select id="menu-pilih" required>
+              <option value="">— Pilih menu —</option>
+              <option>Nasi Rames</option>
+              <option>Sate Ayam</option>
+              <option>Soto Ayam</option>
+              <option>Es Cendol</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jumlah">Jumlah Porsi</label>
+            <input id="jumlah" type="number" min="1" value="1" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="waktu">Waktu Pengambilan/Antar</label>
+          <input id="waktu" type="datetime-local" required>
+        </div>
+        <div class="field">
+          <label for="catatan">Catatan (opsional)</label>
+          <textarea id="catatan" rows="3" placeholder="Contoh: tidak pedas, tanpa kerupuk..."></textarea>
+        </div>
+        <button class="submit-btn" type="submit">Kirim Pesanan</button>
+      </form>
+      <div class="stamp" id="stampMsg">✓ Pesanan diterima dapur — kami hubungi Anda sebentar lagi!</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Warung Lihan — Masakan rumahan, dimasak dengan hati.
+</footer>
+
+</body>
+</html>
